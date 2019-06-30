@@ -3,3 +3,6 @@
 // BSD-style license that can be found in the LICENSE file.
 
 library dartpad_test;
+
+export 'src/test_methods.dart';
+export 'src/matchers.dart';
