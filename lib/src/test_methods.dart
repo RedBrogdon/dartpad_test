@@ -1,9 +1,6 @@
-// This is a basic Flutter widget test.
-//
-// To perform an interaction with a widget in your test, use the WidgetTester
-// utility that Flutter provides. For example, you can send tap and scroll
-// gestures. You can also use WidgetTester to find child widgets in the widget
-// tree, read text, and verify that the values of widget properties are correct.
+// Copyright (c) 2019, the Dart project authors.  Please see the AUTHORS file
+// for details. All rights reserved. Use of this source code is governed by a
+// BSD-style license that can be found in the LICENSE file.
 
 import 'dart:async';
 
@@ -28,7 +25,7 @@ class PossibleHint {
   final String message;
 }
 
-/// Error thrown by [expect] when its matcher fails to match an item.
+/// Exception object thrown by [expect] when its matcher fails to match an item.
 class TestFailure {
   const TestFailure(this.log, [this.hint = '']);
 
@@ -46,10 +43,10 @@ typedef LogFunction = void Function(String msg);
 /// result.
 typedef TestRunnerFunction = Future<TestResult> Function();
 
-/// A function that reports test results to the user.
+/// Reports test results to the user.
 typedef TestReportFunction = void Function(List<TestResult>);
 
-// A default TestReportFunction that prints a basic summary.
+// A default [TestReportFunction] that prints a basic summary.
 void _reportResults(List<TestResult> results) {
   print('REPORTED RESULTS:');
   results?.forEach(
@@ -109,12 +106,13 @@ TestRunnerFunction test(
         }
 
         logFn('TEST PASSED');
+
         return TestResult(true, [successMessage]);
-      }, onError: (e, st) {
+      }, onError: (dynamic err) {
         // It's possible that some unawaited async action spawned during the
-        // executions of [fn] above could throw an error after [test]
+        // execution of [fn] above could throw an error after [test]
         // returns. By wrapping its body in [runZoned] and using the [onError]
-        // property, the errors can be caught and gracefully ignored.
+        // property, these errors can be caught and gracefully ignored.
       });
 }
 
@@ -129,7 +127,8 @@ TestRunnerFunction test(
 ///
 /// If [unwrappedSuccessMatcher] does not match [item], [item] is tested against
 /// the [unwrappedMatcher] in each [PossibleHint]. As soon as one matches, a
-/// [TestFailure] is thrown with the matching hint message.
+/// [TestFailure] is thrown with the matching hint message. If none is found,
+/// [TestFailure] is thrown with an empty hint message.
 ///
 /// Functions calling [expect] *must* await the Future it returns to guarantee
 /// [expect] has a chance to check for both success and failure.
@@ -153,7 +152,7 @@ Future<void> expect(
     successMatcher.describeMismatch(
         item, mismatchDescription, successResults.matchState, false);
 
-    final logMsg = formatFailure(matcherDescription, item, mismatchDescription);
+    final logMsg = _formatFailure(matcherDescription, item, mismatchDescription);
     var hintMsg = '';
 
     // Result wasn't successful, so find the first possible hint that
@@ -174,7 +173,9 @@ Future<void> expect(
   }
 }
 
-String formatFailure(Description matcherDescription, dynamic expected,
+// Pretty-prints a failed match from [expect] into a String so that it can be
+// returned in a [TestFailure].
+String _formatFailure(Description matcherDescription, dynamic expected,
     Description mismatchDescription) {
   final buffer = StringBuffer();
   final pretty = StringDescription().addDescriptionOf(expected).toString();
