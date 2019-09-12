@@ -1,8 +1,11 @@
 name: dartpad_test
 description: Utilities to make testing code snippets in DartPad easier.
+version: 0.0.1
+author: Flutter Team <flutter-dev@googlegroups.com>
+homepage: https://github.com/RedBrogdon/dartpad_test
 
 environment:
-  sdk: '>=2.3.0-dev <3.0.0'
+  sdk: '>=2.5.0 <3.0.0'
 
 dependencies:
   # The test team recommends pinning matcher

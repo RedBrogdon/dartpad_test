@@ -1,0 +1,21 @@
+name: dartpad_flutter_test
+description: A new Flutter package project.
+version: 0.0.1
+author: Dart Team <misc@dartlang.org>
+homepage: https://github.com/RedBrogdon/dartpad_test
+
+
+environment:
+  sdk: ">=2.5.0 <3.0.0"
+
+dependencies:
+  flutter:
+    sdk: flutter
+  dartpad_test:
+    path: ../dartpad_test
+
+dev_dependencies:
+  flutter_test:
+    sdk: flutter
+
+flutter:
