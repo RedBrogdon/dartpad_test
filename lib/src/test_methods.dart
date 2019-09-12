@@ -33,18 +33,18 @@ class TestFailure {
   final String hint;
 }
 
-/// A function under test by the [test] method.
+/// A function suitable for testing by the [test] method.
 typedef TestableFunction = Future<void> Function();
 
 /// Logs a string in an unspecified way (Dart's print method, for instance).
-typedef LogFunction = void Function(String msg);
+typedef LoggerFunction = void Function(String msg);
 
 /// A function created by [test], which will execute a single test and return the
 /// result.
 typedef TestRunnerFunction = Future<TestResult> Function();
 
 /// Reports test results to the user.
-typedef TestReportFunction = void Function(List<TestResult>);
+typedef TestReporterFunction = void Function(List<TestResult>);
 
 // A default [TestReportFunction] that prints a basic summary.
 void _reportResults(List<TestResult> results) {
@@ -58,7 +58,7 @@ void _reportResults(List<TestResult> results) {
 Future<void> testGroup(
   String description,
   List<TestRunnerFunction> tests, {
-  TestReportFunction reporter = _reportResults,
+  TestReporterFunction reporter = _reportResults,
 }) async {
   final results = <TestResult>[];
 
@@ -79,7 +79,7 @@ TestRunnerFunction test(
   String successMessage = 'Test passed!',
   String defaultHintMessage =
       'Not quite right. Keep trying, and check the console for details.',
-  LogFunction logFn = print,
+  LoggerFunction logFn = print,
 }) {
   assert(description != null);
   assert(fn != null);
@@ -152,7 +152,8 @@ Future<void> expect(
     successMatcher.describeMismatch(
         item, mismatchDescription, successResults.matchState, false);
 
-    final logMsg = _formatFailure(matcherDescription, item, mismatchDescription);
+    final logMsg =
+        _formatFailure(matcherDescription, item, mismatchDescription);
     var hintMsg = '';
 
     // Result wasn't successful, so find the first possible hint that

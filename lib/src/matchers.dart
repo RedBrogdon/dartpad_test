@@ -20,7 +20,8 @@ abstract class AsyncMatcher {
   /// specific criteria. Note that if the match fails, the [MatchResult]
   /// returned will include [matchState], a Map containing data about the failed
   /// match. This map should be included to subsequent calls to
-  /// [describeMismatch] in order to get an accurate text description.
+  /// [describeMismatch] in order to get an accurate text description of the
+  /// failed match.
   Future<MatchResult> matchAsync(dynamic item);
 
   /// Builds a textual description of the [AsyncMatcher].
@@ -30,7 +31,7 @@ abstract class AsyncMatcher {
   /// be called after [matchAsync], and the [matchState] from the resulting
   /// [MatchResult] should be provided to this method.
   Description describeMismatch(dynamic item, Description mismatchDescription,
-      Map matchState, bool verbose) =>
+          Map matchState, bool verbose) =>
       mismatchDescription;
 }
 
@@ -45,7 +46,7 @@ class MatcherToAsyncMatcherAdapter extends AsyncMatcher {
   MatcherToAsyncMatcherAdapter(dynamic unwrapped)
       : _matcher = wrapMatcher(unwrapped);
 
-  /// Calls the [Matcher]'s matches method and couches the value returned in a
+  /// Calls the [Matcher]'s [matches] method and couches the value returned in a
   /// Future<MatchResult>.
   Future<MatchResult> matchAsync(dynamic item) async {
     final matchState = <dynamic, dynamic>{};
@@ -63,7 +64,7 @@ class MatcherToAsyncMatcherAdapter extends AsyncMatcher {
   /// describeMismatch method with no modification.
   @override
   Description describeMismatch(dynamic item, Description mismatchDescription,
-      Map<dynamic, dynamic> matchState, bool verbose) =>
+          Map<dynamic, dynamic> matchState, bool verbose) =>
       _matcher.describeMismatch(item, mismatchDescription, matchState, verbose);
 }
 
@@ -87,7 +88,7 @@ class CompletionMatcher extends AsyncMatcher {
     }
   }
 
-  /// Waits for the future to complete, then matches the result against using
+  /// Waits for the future to complete, then matches the result against the
   /// the matcher provided in the constructor.
   @override
   Future<MatchResult> matchAsync(dynamic item) async {
