@@ -6,11 +6,11 @@ import 'dart:async';
 
 import 'package:dartpad_test/dartpad_test.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_test/flutter_test.dart' as ft;
+import 'package:flutter_test/flutter_test.dart' show LiveWidgetController, WidgetController;
 
 /// A function suitable for testing by the [testWidgets] method.
 typedef WidgetTestableFunction = Future<void> Function(
-    ft.WidgetController controller);
+    WidgetController controller);
 
 /// Creates a single test that will execute [fn] with a [LiveWidgetController].
 /// Test authors should use the controller to inspect/manipulate the widget tree
@@ -47,7 +47,12 @@ TestRunnerFunction testWidgets(
 
     WidgetsFlutterBinding.ensureInitialized()
         .addPostFrameCallback((timestamp) {
-      print(4);
+      final controller = LiveWidgetController(WidgetsBinding.instance);
+
+      if (controller.allWidgets.length > 0) {
+        completer.complete(TestResult(false, []));
+      }
+
       completer.complete(TestResult(true, []));
     });
 
