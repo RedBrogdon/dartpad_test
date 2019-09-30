@@ -16,9 +16,10 @@ typedef WidgetTestableFunction = Future<void> Function(
 /// Test authors should use the controller to inspect/manipulate the widget tree
 /// similar to the way it would be done with the `tester` in a standard Flutter
 /// widget test. They should also use `await expect` to check for
-/// success/failure inside the functions passed as [fn]. Any errors thrown
-/// during [fn]'s execution will be treated as failed tests. If nothing is
-/// thrown, the test is considered successful.
+/// success/failure inside the functions passed as [fn].
+///
+/// Any errors thrown during [fn]'s execution will be treated as failed tests.
+/// If nothing is thrown, the test is considered successful.
 TestRunnerFunction testWidgets(
   String description,
   Widget widget,
@@ -35,21 +36,42 @@ TestRunnerFunction testWidgets(
   assert(logFn != null);
 
   return () {
-    final completer = Completer<TestResult>();
+    print(1);
 
-    ft.testWidgets(
-      description,
-      (tester) async {
-        try {
-          await tester.pumpWidget(widget);
-          await fn(tester);
-          completer.complete(TestResult(true, ['asdfasdfasdfasdfsdf']));
-        } catch (ex) {
-          completer.complete(TestResult(false, []));
-        }
-      },
-    );
+    final completer = Completer<TestResult>();
+    print(2);
+
+    runApp(widget);
+    print(3);
+
+
+    WidgetsFlutterBinding.ensureInitialized()
+        .addPostFrameCallback((timestamp) {
+      print(4);
+      completer.complete(TestResult(true, []));
+    });
+
+    print(5);
 
     return completer.future;
   };
+
+//  return () {
+//    final completer = Completer<TestResult>();
+//
+//    ft.testWidgets(
+//      description,
+//      (tester) async {
+//        try {
+//          await tester.pumpWidget(widget);
+//          await fn(tester);
+//          completer.complete(TestResult(true, ['asdfasdfasdfasdfsdf']));
+//        } catch (ex) {
+//          completer.complete(TestResult(false, []));
+//        }
+//      },
+//    );
+//
+//    return completer.future;
+//  };
 }

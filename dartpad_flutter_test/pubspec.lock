@@ -60,9 +60,11 @@ packages:
   dartpad_test:
     dependency: "direct main"
     description:
-      path: "../dartpad_test"
-      relative: true
-    source: path
+      path: dartpad_test
+      ref: HEAD
+      resolved-ref: "40dd3960007e9d2412feba228720ef7867056af5"
+      url: "git://github.com/RedBrogdon/dartpad_test.git"
+    source: git
     version: "0.0.1"
   flutter:
     dependency: "direct main"
