@@ -12,7 +12,9 @@ dependencies:
   flutter:
     sdk: flutter
   dartpad_test:
-    path: ../dartpad_test
+    git:
+      url: git://github.com/RedBrogdon/dartpad_test.git
+      path: dartpad_test
 
 dev_dependencies:
   flutter_test:
