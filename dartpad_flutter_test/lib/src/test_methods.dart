@@ -6,7 +6,8 @@ import 'dart:async';
 
 import 'package:dartpad_test/dartpad_test.dart';
 import 'package:flutter/widgets.dart';
-import 'package:flutter_test/flutter_test.dart' show LiveWidgetController, WidgetController;
+import 'package:flutter_test/flutter_test.dart'
+    show LiveWidgetController, WidgetController;
 
 /// A function suitable for testing by the [testWidgets] method.
 typedef WidgetTestableFunction = Future<void> Function(
@@ -44,16 +45,14 @@ TestRunnerFunction testWidgets(
     runApp(widget);
     print(3);
 
-
-    WidgetsFlutterBinding.ensureInitialized()
-        .addPostFrameCallback((timestamp) {
+    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timestamp) {
       final controller = LiveWidgetController(WidgetsBinding.instance);
 
       if (controller.allWidgets.length > 0) {
         completer.complete(TestResult(false, []));
+      } else {
+        completer.complete(TestResult(true, []));
       }
-
-      completer.complete(TestResult(true, []));
     });
 
     print(5);
