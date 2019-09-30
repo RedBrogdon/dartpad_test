@@ -8,7 +8,7 @@ import 'package:dartpad_test/dartpad_test.dart';
 import 'package:flutter/widgets.dart';
 import 'package:flutter_test/flutter_test.dart' as ft;
 
-/// A function suitable for testing by the [widgetTest] method.
+/// A function suitable for testing by the [testWidgets] method.
 typedef WidgetTestableFunction = Future<void> Function(
     ft.WidgetController controller);
 
@@ -19,7 +19,7 @@ typedef WidgetTestableFunction = Future<void> Function(
 /// success/failure inside the functions passed as [fn]. Any errors thrown
 /// during [fn]'s execution will be treated as failed tests. If nothing is
 /// thrown, the test is considered successful.
-TestRunnerFunction widgetTest(
+TestRunnerFunction testWidgets(
   String description,
   Widget widget,
   WidgetTestableFunction fn, {

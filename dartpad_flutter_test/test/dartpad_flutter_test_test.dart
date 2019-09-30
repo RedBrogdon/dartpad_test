@@ -42,7 +42,7 @@ class _MyWidgetState extends State<MyWidget> {
 }
 
 void main() {
-  dft.widgetTest(
+  dft.testWidgets(
     'asdf',
     _buildWidget(),
     (controller) async {
