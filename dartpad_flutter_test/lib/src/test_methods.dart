@@ -36,46 +36,28 @@ TestRunnerFunction testWidgets(
   assert(defaultHintMessage != null);
   assert(logFn != null);
 
-  return () {
-    print(1);
-
-    final completer = Completer<TestResult>();
-    print(2);
+  return () async {
+    final completer = Completer<void>();
 
     runApp(widget);
-    print(3);
 
-    WidgetsFlutterBinding.ensureInitialized().addPostFrameCallback((timestamp) {
-      final controller = LiveWidgetController(WidgetsBinding.instance);
-
-      if (controller.allWidgets.length > 0) {
-        completer.complete(TestResult(false, []));
-      } else {
-        completer.complete(TestResult(true, []));
-      }
+    // This block registers a callback that guarantees the LiveWidgetController
+    // created below will have an element tree that's fully built and attached.
+    WidgetsFlutterBinding.ensureInitialized()
+        .addPostFrameCallback((timestamp) async {
+      completer.complete();
     });
 
-    print(5);
+    await completer.future;
 
-    return completer.future;
+    final controller = LiveWidgetController(WidgetsBinding.instance);
+
+    return test(
+      description,
+      () => fn(controller),
+      successMessage: successMessage,
+      defaultHintMessage: defaultHintMessage,
+      logFn: logFn,
+    )();
   };
-
-//  return () {
-//    final completer = Completer<TestResult>();
-//
-//    ft.testWidgets(
-//      description,
-//      (tester) async {
-//        try {
-//          await tester.pumpWidget(widget);
-//          await fn(tester);
-//          completer.complete(TestResult(true, ['asdfasdfasdfasdfsdf']));
-//        } catch (ex) {
-//          completer.complete(TestResult(false, []));
-//        }
-//      },
-//    );
-//
-//    return completer.future;
-//  };
 }
