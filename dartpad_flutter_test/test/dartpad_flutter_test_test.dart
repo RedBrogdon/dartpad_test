@@ -42,19 +42,34 @@ class _MyWidgetState extends State<MyWidget> {
 }
 
 void main() {
-  dft.testWidgets(
-    'asdf',
-    _buildWidget(),
-    (controller) async {
-      await controller.tap(find.byType(RaisedButton));
-      await controller.pump(Duration(seconds: 10));
-      await dpt.expect(find.text('0'), findsOneWidget);
-    },
-    logFn: (s) {
-      print('LOGGED: $s');
-    },
-  )().then((result) {
-    print(result.success);
-    print(result.messages);
+  group('StatefulWidget tests: ', () {
+    test('Simple tap test with success', () async {
+      final result = await dft.testWidgets(
+        '(internal) Simple tap test with success',
+        _buildWidget(),
+        (controller) async {
+          await controller.tap(find.byType(RaisedButton));
+          await controller.pump(Duration(seconds: 1));
+          await dpt.expect(find.text('1'), findsOneWidget);
+        },
+        logFn: (s) {},
+      )();
+
+      expect(result.success, true);
+    });
+    test('Simple tap test with failure', () async {
+      final result = await dft.testWidgets(
+        '(internal) Simple tap test with failure',
+        _buildWidget(),
+        (controller) async {
+          await controller.tap(find.byType(RaisedButton));
+          await controller.pump(Duration(seconds: 1));
+          await dpt.expect(find.text('0'), findsOneWidget);
+        },
+        logFn: (s) {},
+      )();
+
+      expect(result.success, false);
+    });
   });
 }
