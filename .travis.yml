@@ -1,0 +1,37 @@
+git:
+  depth: 3
+
+jobs:
+  include:
+  - name: Flutter tests, stable channel
+    os: linux
+    dist: trusty
+    language: ruby
+    script: "./tool/travis_flutter_script.sh"
+    env: FLUTTER_VERSION=stable
+
+  - name: Flutter tests, beta channel
+    os: linux
+    dist: trusty
+    language: ruby
+    script: "./tool/travis_flutter_script.sh"
+    env: FLUTTER_VERSION=beta
+
+  allow_failures:
+  - env: FLUTTER_VERSION=beta
+
+before_script:
+- git clone https://github.com/flutter/flutter.git -b $FLUTTER_VERSION
+- "./flutter/bin/flutter doctor"
+- chmod +x tool/travis_*_script.sh
+
+cache:
+  directories:
+  - "$HOME/shared/.pub-cache"
+
+notifications:
+  email: brogdon+github@gmail.com
+
+branches:
+  only:
+  - master
