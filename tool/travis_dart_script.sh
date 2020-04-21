@@ -11,6 +11,9 @@ do
     echo "== Testing '${PROJECT_NAME}'"
     pushd "${PROJECT_NAME}"
 
+    # Grab packages.
+    pub get
+
     # Run the analyzer to find any static analysis issues.
     dartanalyzer --fatal-infos --fatal-warnings ./
 
