@@ -17,6 +17,16 @@ jobs:
     script: "./tool/travis_flutter_script.sh"
     env: FLUTTER_VERSION=beta
 
+  - name: Dart tests, stable channel
+    language: dart
+    script: "./tool/travis_dart_script.sh"
+    dart: stable
+
+  - name: Dart tests, dev channel
+    language: dart
+    script: "./tool/travis_dart_script.sh"
+    dart: dev
+
   allow_failures:
   - env: FLUTTER_VERSION=beta
 
