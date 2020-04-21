@@ -3,7 +3,7 @@
 set -e
 
 declare -ar PROJECT_NAMES=(
-    "dartpad_test" \
+    "packages/dartpad_test" \
 )
 
 for PROJECT_NAME in "${PROJECT_NAMES[@]}"

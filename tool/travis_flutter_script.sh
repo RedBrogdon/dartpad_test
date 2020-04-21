@@ -26,7 +26,7 @@ fi
 echo "Flutter SDK found at ${LOCAL_SDK_PATH}"
 
 declare -ar PROJECT_NAMES=(
-    "dartpad_flutter_test" \
+    "packages/dartpad_flutter_test" \
 )
 
 for PROJECT_NAME in "${PROJECT_NAMES[@]}"
