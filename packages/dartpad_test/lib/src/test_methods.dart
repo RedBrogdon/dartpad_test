@@ -55,7 +55,7 @@ void _reportResults(List<TestResult> results) {
 
 /// Executes a group of [test]-created [TestRunnerFunction]s serially, then
 /// reports the results via [reporter].
-Future<void> testGroup(
+Future<void> group(
   String description,
   List<TestRunnerFunction> tests, {
   TestReporterFunction reporter = _reportResults,
