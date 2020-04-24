@@ -6,7 +6,7 @@ homepage: https://github.com/RedBrogdon/dartpad_test
 
 
 environment:
-  sdk: ">=2.5.0-dev.4.0 <3.0.0"
+  sdk: ">=2.5.0 <3.0.0"
 
 dependencies:
   flutter:

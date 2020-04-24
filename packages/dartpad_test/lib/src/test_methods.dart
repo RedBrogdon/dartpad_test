@@ -39,8 +39,8 @@ typedef TestableFunction = Future<void> Function();
 /// Logs a string in an unspecified way (Dart's print method, for instance).
 typedef LoggerFunction = void Function(String msg);
 
-/// A function created by [test], which will execute a single test and return the
-/// result.
+/// A function created by [test], which will execute a single test and return
+/// the result.
 typedef TestRunnerFunction = Future<TestResult> Function();
 
 /// Reports test results to the user.
@@ -69,10 +69,12 @@ Future<void> group(
   reporter(results);
 }
 
-/// Creates a single test that will execute [fn]. Test authors should use
-/// [expect] to check for success/failure inside the functions passed as [fn].
-/// Any errors thrown during [fn]'s execution will be treated as failed tests.
-/// If nothing is thrown, the test is considered successful.
+/// Creates a single test that will execute [fn].
+///
+/// Test authors should use [expect] to check for success/failure inside the
+/// functions passed as [fn]. Any errors thrown during [fn]'s execution will be
+/// treated as failed tests. If nothing is thrown, the test is considered
+/// successful.
 TestRunnerFunction test(
   String description,
   TestableFunction fn, {
