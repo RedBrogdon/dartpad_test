@@ -1,3 +1,4 @@
-## [0.0.1] - TODO: Add release date.
+## [0.0.1] - 4/27/20
 
-* TODO: Describe initial release.
+* Initial release.
+* Includes top-level `testWidgets` method and little else.

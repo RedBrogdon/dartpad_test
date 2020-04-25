@@ -1,5 +1,5 @@
 name: dartpad_test
-description: Utilities to make testing code snippets in DartPad easier.
+description: Utilities to simplify testing of Dart code snippets in DartPad.
 version: 0.0.1
 author: Flutter Team <flutter-dev@googlegroups.com>
 homepage: https://github.com/RedBrogdon/dartpad_test

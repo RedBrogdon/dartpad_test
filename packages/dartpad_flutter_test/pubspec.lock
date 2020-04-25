@@ -60,9 +60,9 @@ packages:
   dartpad_test:
     dependency: "direct main"
     description:
-      path: dartpad_test
+      path: "packages/dartpad_test"
       ref: HEAD
-      resolved-ref: "27d4e5988f74c7e26dc7d85e33a47baac822f3a4"
+      resolved-ref: "669b887b4b9e854f33bd714c7ab4bf6de52a40d4"
       url: "git://github.com/RedBrogdon/dartpad_test.git"
     source: git
     version: "0.0.1"

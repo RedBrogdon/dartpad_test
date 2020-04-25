@@ -1,3 +1,5 @@
-## 1.0.0
+## [0.0.1] - 4/27/20
 
-- Initial version, created by Stagehand
+* Initial release.
+* Includes top-level `test`, `expect`, and `group` methods.
+* Also includes `CompletionMatcher` for testing async methods.

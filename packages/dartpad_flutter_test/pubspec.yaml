@@ -1,9 +1,8 @@
 name: dartpad_flutter_test
-description: A new Flutter package project.
+description: Utilities to simplify testing of Flutter snippets in DartPad.
 version: 0.0.1
 author: Dart Team <misc@dartlang.org>
 homepage: https://github.com/RedBrogdon/dartpad_test
-
 
 environment:
   sdk: ">=2.5.0 <3.0.0"

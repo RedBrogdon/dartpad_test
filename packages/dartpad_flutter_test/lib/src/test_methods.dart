@@ -14,6 +14,7 @@ typedef WidgetTestableFunction = Future<void> Function(
     WidgetController controller);
 
 /// Creates a single test that will execute [fn] with a [LiveWidgetController].
+///
 /// Test authors should use the controller to inspect/manipulate the widget tree
 /// similar to the way it would be done with the `tester` in a standard Flutter
 /// widget test. They should also use `await expect` to check for
